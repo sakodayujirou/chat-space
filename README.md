@@ -28,8 +28,7 @@ usersテーブル
 |Column|Type|Options|
 |------|----|-------|
 |name|string|null: false|
-|e_mail|string|null: false|
-|password|string|null: false|
+
 
 ### Association
 - has_many :groups_users
@@ -49,9 +48,21 @@ groups_usersテーブル
 
 |Column|Type|Options|
 |------|----|-------|
-|user_id|integer|
-|group_id|integer|
+|user|references|null: false, foreign_key: true|
+|group|references|null: false, foreign_key: true|
 
 ### Association
 - belongs_to :group
 - belongs_to :user
+
+|Column|Type|Options|
+|------|----|-------|
+|text|text|null: false|
+|user|references|null: false, foreign_key: true|
+|group|references|null: false, foreign_key: true|
+
+### Association
+- belongs_to :group
+- belongs_to :user
+
+
