@@ -1,6 +1,16 @@
 @import "./reset";
-header{
-  height: 50px;
-  width: 100%;
-  background-color: black;
-}
+@import "config/colors";
+@import "config/font-size";
+@import "config/reset";
+@import "mixins/mixin";
+@import "mixins/vendor_prefix";
+@import "modules/side_bar";
+@import "modules/chat";
+@import "messages/messages.scss";
+
+
+
+
+
+
+
