@@ -1,0 +1,23 @@
+#contents.bgcolor-white.pt1em.pb1em
+  #main_cnt_wrapper
+    #yjContentsBody
+      .yjContainer
+        .form_box
+          %h2
+            mooovi
+            %span ログイン
+          = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+            %div
+              = f.email_field :email, autofocus: true, :placeholder => 'メールアドレスを入力'
+            %div
+              = f.password_field :password, autocomplete: "off", :placeholder => 'パスワードを入力'
+            .row
+              - if devise_mapping.rememberable?
+                .col-xs-6
+                  = f.check_box :remember_me
+                  = f.label :パスワードを記憶
+              .col-xs-6 パスワードを忘れましたか？
+              .submit= f.submit "ログイン"
+          .more_link_box
+            %strong まだアカウントを持っていませんか？
+            = render "devise/shared/links"
