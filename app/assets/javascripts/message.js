@@ -11,8 +11,10 @@ $(function(){
       </div>
     </div>
     <div class='lower-meesage'>
+    <p class='lower-message__content'>
     ${message.text}
-    ${message.image}
+    </p>
+    <img src="${message.image}" class='lower-message__image'>
     </div>
     </div>
   `
@@ -32,9 +34,13 @@ $(function(){
       contentType: false
     })
     .done(function(data){
-      console.log(data)
-      var html = buildHTML(data);
+      var html = buildHTML(data);     
       $('.messages').append(html)
+      $(html).ready(function() {        
+        $('.lower-message__image').error(function() {           
+            $(this).remove();
+        });
+    });
       $('.form__message').val('')
       
       
@@ -42,16 +48,17 @@ $(function(){
     .fail(function(){
       alert('error');
     })
+
+    
     .always(function(data){
       $('.form__submit').prop('disabled', false);
     })
-    function scrollBottom(){
-      var target = $('.message').last();
-      var position = target.offset().top + $('.messages').scrollTop();
-      $('.messages').animate({
-        scrollTop: position
-      }, 300, 'swing');
-    }
+    
+    $(function() {
+      $('.form__submit').click(function() {
+        $('html,body').animate({scrollBottom: 0}, 500, 'swing');
+      });
+    });
    })
   });
 
