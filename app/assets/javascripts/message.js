@@ -23,7 +23,6 @@ $(function(){
   $('#new_message').on('submit', function(e){
     e.preventDefault();
     var formData = new FormData(this);
-    console.log(this)
     var url = $(this).attr('action')
     $.ajax({
       url: url,
@@ -41,19 +40,14 @@ $(function(){
             $(this).remove();
         });
     });
-      $('.form__message').val('')
-      
-      
+      $('.form__message').reset();
     })
     .fail(function(){
       alert('error');
     })
-
-    
     .always(function(data){
       $('.form__submit').prop('disabled', false);
     })
-    
     $(function() {
       $('.form__submit').click(function() {
         $('html,body').animate({scrollBottom: 0}, 500, 'swing');
