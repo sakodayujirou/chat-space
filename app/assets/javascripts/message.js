@@ -39,7 +39,7 @@ $(function(){
       $(this).remove();
       });     
     });
-      $('.form__message').reset();
+      $('.form__message').reset();     
     })
     .fail(function(){
       alert('error');
