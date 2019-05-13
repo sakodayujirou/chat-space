@@ -1,52 +1,87 @@
 $(function(){
+  // var buildMessageHTML = function(message) {
+  //   if (message.text && message.image) {
+  //     var html = '<div class="message" data-id=' + message.id + '>' +
+  //       '<div class="upper-message">' +
+  //         '<div class="upper-message__user-name">' +
+  //           message.user_name +
+  //         '</div>' +
+  //         '<div class="upper-message__date">' +
+  //           message.created_at +
+  //         '</div>' +
+  //       '</div>' +
+  //       '<div class="lower-message">' +
+  //         '<p class="lower-message__content">' +
+  //           message.text +
+  //         '</p>' +
+  //         '<img src="' + message.image + '" class="lower-message__image" >' +
+  //       '</div>' +
+  //     '</div>'
+  //   } else if (message.text) {
+  //     var html = '<div class="message" data-id=' + message.id + '>' +
+  //       '<div class="upper-message">' +
+  //         '<div class="upper-message__user-name">' +
+  //           message.user_name +
+  //         '</div>' +
+  //         '<div class="upper-message__date">' +
+  //           message.created_at +
+  //         '</div>' +
+  //       '</div>' +
+  //       '<div class="lower-message">' +
+  //         '<p class="lower-message__content">' +
+  //           message.text +
+  //         '</p>' +
+  //       '</div>' +
+  //     '</div>'
+  //   } else if (message.image) {
+  //     var html = '<div class="message" data-id=' + message.id + '>' +
+  //       '<div class="upper-message">' +
+  //         '<div class="upper-message__user-name">' +
+  //           message.user_name +
+  //         '</div>' +
+  //         '<div class="upper-message__date">' +
+  //           message.created_at +
+  //         '</div>' +
+  //       '</div>' +
+  //       '<div class="lower-message">' +
+  //         '<img src="' + message.image + '" class="lower-message__image" >' +
+  //       '</div>' +
+  //     '</div>'
+  //   };
+  //   return html;
+  // };
+
   var buildMessageHTML = function(message) {
+    var html_parent ='<div class="message" data-id=' + message.id + '>' +
+                      '<div class="upper-message">' +
+                      '<div class="upper-message__user-name">' +
+                       message.user_name +
+                      '</div>' +
+                      '<div class="upper-message__date">' +
+                        message.created_at +
+                      '</div>' +
+                      '</div>' +
+                      '<div class="lower-message">' 
     if (message.text && message.image) {
-      var html = '<div class="message" data-id=' + message.id + '>' +
-        '<div class="upper-message">' +
-          '<div class="upper-message__user-name">' +
-            message.user_name +
-          '</div>' +
-          '<div class="upper-message__date">' +
-            message.created_at +
-          '</div>' +
-        '</div>' +
-        '<div class="lower-message">' +
-          '<p class="lower-message__content">' +
-            message.text +
-          '</p>' +
-          '<img src="' + message.image + '" class="lower-message__image" >' +
-        '</div>' +
-      '</div>'
+    var html = html_parent +
+              '<p class="lower-message__content">' +
+                message.text +
+              '</p>' +
+              '<img src="' + message.image + '" class="lower-message__image" >' +
+              '</div>' +
+              '</div>'
     } else if (message.text) {
-      var html = '<div class="message" data-id=' + message.id + '>' +
-        '<div class="upper-message">' +
-          '<div class="upper-message__user-name">' +
-            message.user_name +
-          '</div>' +
-          '<div class="upper-message__date">' +
-            message.created_at +
-          '</div>' +
-        '</div>' +
-        '<div class="lower-message">' +
-          '<p class="lower-message__content">' +
-            message.text +
-          '</p>' +
-        '</div>' +
-      '</div>'
+      var html = html_parent +
+                '<p class="lower-message__content">' +
+                 message.text +
+                '</p>' +
+                '</div>' +
+                '</div>'
     } else if (message.image) {
-      var html = '<div class="message" data-id=' + message.id + '>' +
-        '<div class="upper-message">' +
-          '<div class="upper-message__user-name">' +
-            message.user_name +
-          '</div>' +
-          '<div class="upper-message__date">' +
-            message.created_at +
-          '</div>' +
-        '</div>' +
-        '<div class="lower-message">' +
-          '<img src="' + message.image + '" class="lower-message__image" >' +
-        '</div>' +
-      '</div>'
+      var html = html_parent +
+                '<img src="' + message.image + '" class="lower-message__image" >' +
+                '</div>' +
+                '</div>'
     };
     return html;
   };
