@@ -1,5 +1,4 @@
 $(function(){
-
   var buildMessageHTML = function(message) {
     if (message.text && message.image) {
       var html = '<div class="message" data-id=' + message.id + '>' +
@@ -54,13 +53,10 @@ $(function(){
 
   var reloadMessages = function() {
     last_message_id = $('.message:last').data('id');
-    console.log(last_message_id)
     group_id=location.href
     group_id=group_id.replace("http://localhost:3000/groups/","")
     group_id=group_id.replace("/messages","")
-    console.log(group_id)
     url = "/groups/"+ group_id +"/api/messages"
-    console.log(url)
     $.ajax({
       url: url,
       type: 'get',
@@ -69,8 +65,6 @@ $(function(){
     })
   
     .done(function(messages) {
-      console.log("ok")
-      console.log(messages)
       $.each(messages,function(index,message) {
         var html = buildMessageHTML(message);
         $('.messages').append(html)
@@ -83,17 +77,16 @@ $(function(){
       });
     })
     .fail(function() {
-      console.log('error');
+      alert('error');
     });
   };
-    setInterval(reloadMessages, 5000)
 
+  setInterval(reloadMessages, 5000)
 
   $('#new_message').on('submit', function(e){
     e.preventDefault();
       var formData = new FormData(this);
       var url = $(this).attr('action')
-      console.log(url)
     $.ajax({
       url: url,
       type: 'POST',
@@ -117,6 +110,6 @@ $(function(){
     .fail(function(){
       alert('error');
     })
-   });  
+  });  
 });
   
