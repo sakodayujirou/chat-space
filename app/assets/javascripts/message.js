@@ -1,60 +1,92 @@
 $(function(){
-  function buildHTML(message){
-    var html = `<div class='message'>
-    <div class='upper-message'>
-    <div class='upper-message__user-name'>
-    ${message.user_name}
-    </div>
-    <div class='upper-message__date'>
-    ${message.created_at}
-    </div>
-    </div>
-    <div class='lower-meesage'>
-    <p class='lower-message__content'>
-    ${message.text}
-    </p>
-    <img src="${message.image}" class='lower-message__image'>
-    </div>
-    </div>`
 
+  var buildMessageHTML = function(message) {
+    if (message.text && message.image) {
+      var html = '<div class="message" data-id=' + message.id + '>' +
+        '<div class="upper-message">' +
+          '<div class="upper-message__user-name">' +
+            message.user_name +
+          '</div>' +
+          '<div class="upper-message__date">' +
+            message.created_at +
+          '</div>' +
+        '</div>' +
+        '<div class="lower-message">' +
+          '<p class="lower-message__content">' +
+            message.text +
+          '</p>' +
+          '<img src="' + message.image + '" class="lower-message__image" >' +
+        '</div>' +
+      '</div>'
+    } else if (message.text) {
+      var html = '<div class="message" data-id=' + message.id + '>' +
+        '<div class="upper-message">' +
+          '<div class="upper-message__user-name">' +
+            message.user_name +
+          '</div>' +
+          '<div class="upper-message__date">' +
+            message.created_at +
+          '</div>' +
+        '</div>' +
+        '<div class="lower-message">' +
+          '<p class="lower-message__content">' +
+            message.text +
+          '</p>' +
+        '</div>' +
+      '</div>'
+    } else if (message.image) {
+      var html = '<div class="message" data-id=' + message.id + '>' +
+        '<div class="upper-message">' +
+          '<div class="upper-message__user-name">' +
+            message.user_name +
+          '</div>' +
+          '<div class="upper-message__date">' +
+            message.created_at +
+          '</div>' +
+        '</div>' +
+        '<div class="lower-message">' +
+          '<img src="' + message.image + '" class="lower-message__image" >' +
+        '</div>' +
+      '</div>'
+    };
     return html;
-  }
-  // var reloadMessages = function() {
-    
-  //   //カスタムデータ属性を利用し、ブラウザに表示されている最新メッセージのidを取得
-  //   last_message_id = $('.message:last').data('id');
-  //   console.log(last_message_id)
-  //   // group_id=location.href
-  //   // group_id=group_id.replace("http://localhost:3000/groups/","")
-  //   // group_id=group_id.replace("/messages","")
-  //   // console.log(group_id)
-  //   //url = "/groups/"+ group_id +"/api/messages"
-  //   url = `/groups/group_id/api/messages`
-  //   console.log(url)
-  //   $.ajax({
-  //     url: url,
-  //     type: 'get',
-  //     dataType: 'json',
-  //     data: {id: last_message_id}
-  //   })
+  };
+
+  var reloadMessages = function() {
+    last_message_id = $('.message:last').data('id');
+    console.log(last_message_id)
+    group_id=location.href
+    group_id=group_id.replace("http://localhost:3000/groups/","")
+    group_id=group_id.replace("/messages","")
+    console.log(group_id)
+    url = "/groups/"+ group_id +"/api/messages"
+    console.log(url)
+    $.ajax({
+      url: url,
+      type: 'get',
+      dataType: 'json',
+      data: {id: last_message_id}, 
+    })
   
-  //   .done(function(messages) {
-  //     //追加するHTMLの入れ物を作る
-  //     console.log("ok")
-  //     console.log(messages)
-  //     var insertHTML = '';
-  //     //配列messagesの中身一つ一つを取り出し、HTMLに変換したものを入れ物に足し合わせる
-
-  //     //メッセージが入ったHTMLを取得
-
-  //     //メッセージを追加
-
-  //   })
-  //   .fail(function() {
-  //     console.log('error');
-  //   });
-  // };
-  //   setInterval(reloadMessages, 5000)
+    .done(function(messages) {
+      console.log("ok")
+      console.log(messages)
+      $.each(messages,function(index,message) {
+        var html = buildMessageHTML(message);
+        $('.messages').append(html)
+        $(html).ready(function() {        
+          $('.lower-message__image').error(function() {           
+          $(this).remove();
+          });
+        });
+        $('html,body').animate({scrollBottom: 0}, 500, 'swing');
+      });
+    })
+    .fail(function() {
+      console.log('error');
+    });
+  };
+    setInterval(reloadMessages, 5000)
 
 
   $('#new_message').on('submit', function(e){
@@ -71,15 +103,16 @@ $(function(){
       contentType: false
     })
     .done(function(data){
-      $('.form__submit').prop('disabled', false);
-      var html = buildHTML(data);     
+      var html = buildMessageHTML(data);
       $('.messages').append(html)
+      $('.form_message').val('');
       $(html).ready(function() {        
         $('.lower-message__image').error(function() {           
         $(this).remove();
         });
       });
-      $('.form_message').trigger("reset");
+      $('html,body').animate({scrollBottom: 0}, 500, 'swing');     
+      $('.form__submit').prop('disabled', false);
     })
     .fail(function(){
       alert('error');
