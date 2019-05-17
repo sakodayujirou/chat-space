@@ -36,10 +36,8 @@ $(function(){
 
   var reloadMessages = function() {
     last_message_id = $('.message:last').data('id');
-    group_id=location.href
-    group_id=group_id.replace("http://localhost:3000/groups/","")
-    group_id=group_id.replace("/messages","")
-    url = "/groups/"+ group_id +"/api/messages"
+    var url = $("#new_message").attr('action')
+    url =url.replace("/messages","/api/messages")
     $.ajax({
       url: url,
       type: 'get',
