@@ -79,13 +79,13 @@ $(function(){
     .done(function(data){
       var html = buildMessageHTML(data);
       $('.messages').append(html)
-      $('.form_message').val('');
+      $('.form__message').val('');
       $(html).ready(function() {        
-        $('.lower-message__image').error(function() {           
+        $('.lower-message__image').error(function() {
         $(this).remove();
         });
       });
-      $('html,body').animate({scrollBottom: 0}, 500, 'swing');     
+      $(".messages").animate({ scrollTop: $('.messages')[0].scrollHeight}, 500);
       $('.form__submit').prop('disabled', false);
     })
     .fail(function(){
